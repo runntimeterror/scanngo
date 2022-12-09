@@ -4,11 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
+import Error from './Error'
+import Checkout from './payment/Checkout'
 import awsExports from './aws-exports';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />
+  },
+  {
+    path: "payment",
+    element: <Checkout />,
+  },
+]);
+
+
 Amplify.configure(awsExports);
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
   document.getElementById('root')
 );
